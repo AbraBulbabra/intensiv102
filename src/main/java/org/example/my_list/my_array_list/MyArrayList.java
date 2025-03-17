@@ -1,6 +1,6 @@
 package org.example.my_list.my_array_list;
 
-import org.example.my_list.my_array_list.list.MyList;
+import org.example.my_list.list.MyList;
 
 public class MyArrayList<T> implements MyList<T> {
 
@@ -51,10 +51,6 @@ public class MyArrayList<T> implements MyList<T> {
         if (isLimitSize()) {
             extensionMatrix();
         }
-    }
-
-    private boolean isLimitSize() {
-        return size == matrixElements.length;
     }
 
     /**
@@ -134,6 +130,20 @@ public class MyArrayList<T> implements MyList<T> {
         return newObject;
     }
 
+    /**
+     * Создает новый массив для матрицы с учетом ограничения размера.
+     * отлет из SVO 23.30 19.03.2025
+     *
+     * @return новый массив с длиной, соответствующей текущим ограничениям
+     */
+    private Object[] createObjectNewLength() {
+        if (isLimitSize()) {
+            return new Object[newLength()];
+        } else {
+            return new Object[matrixElements.length];
+        }
+    }
+
     @Override
     public void remove(int index) {
         if (checkIndex(index)) {
@@ -144,6 +154,19 @@ public class MyArrayList<T> implements MyList<T> {
         }
     }
 
+    private boolean isLimitSize() {
+        return size == matrixElements.length;
+    }
+
+    private boolean checkIndex(int index) {
+        return (index >= 0) && (index < size);
+    }
+
+    /**
+     * Копирует элементы матрицы с шагом влево, начиная с указанного индекса.
+     *
+     * @param index - индекс, с которого начинается сдвиг влево
+     */
     private void copyMatrixWithStepToLeft(int index) {
         Object[] matrixElement = this.matrixElements;
         int oldSize = size;
@@ -178,22 +201,5 @@ public class MyArrayList<T> implements MyList<T> {
             es[i] = null;
         }
         size = 0;
-    }
-
-    /**
-     * Создает новый массив для матрицы с учетом ограничения размера.
-     *
-     * @return новый массив с длиной, соответствующей текущим ограничениям
-     */
-    private Object[] createObjectNewLength() {
-        if (isLimitSize()) {
-            return new Object[newLength()];
-        } else {
-            return new Object[matrixElements.length];
-        }
-    }
-
-    private boolean checkIndex(int index) {
-        return (index >= 0) && (index < size);
     }
 }
