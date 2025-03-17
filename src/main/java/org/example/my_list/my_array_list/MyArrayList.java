@@ -39,7 +39,13 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(int index, T element) {
-
+        if (checkIndex(index)) {
+            matrixElements = copyMatrixWithStepToRight(index);
+            matrixElements[index] = element;
+            size++;
+        } else {
+            System.err.printf("Out of bounds Check Index -> %d", index);
+        }
     }
 
     @Override
@@ -61,6 +67,7 @@ public class MyArrayList<T> implements MyList<T> {
     public void clear() {
 
     }
+
 
     private void growMatrix() {
         if (isLimitSize()) {
@@ -124,5 +131,45 @@ public class MyArrayList<T> implements MyList<T> {
 
     private boolean isSizeMatrixElementsNotZeroOrEmpty() {
         return matrixElements.length > 0 || matrixElements != DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+    }
+
+    /**
+     * Создает копию текущей матрицы с шагом вправо, начиная с указанного индекса.
+     * <p>
+     * * @param index - индекс, с которого будет добавлен шаг вправо (сместит элементы)
+     * * @return новый массив с элементами текущей матрицы, сдвинутыми вправо
+     */
+    private Object[] copyMatrixWithStepToRight(int index) {
+        Object[] newObject = createObjectNewLength();
+
+        int add = 0;
+        for (int i = 0; i < size; i++) {
+            if (i == index) {
+                newObject[i] = null;
+                add++;
+            }
+
+            int newIndex = i + add;
+            newObject[newIndex] = matrixElements[i];
+        }
+
+        return newObject;
+    }
+
+    /**
+     * Создает новый массив для матрицы с учетом ограничения размера.
+     *
+     * @return новый массив с длиной, соответствующей текущим ограничениям
+     */
+    private Object[] createObjectNewLength() {
+        if (isLimitSize()) {
+            return new Object[newLength()];
+        } else {
+            return new Object[matrixElements.length];
+        }
+    }
+
+    private boolean checkIndex(int index) {
+        return (index >= 0) && (index < size);
     }
 }
