@@ -39,7 +39,7 @@ public interface MyList<T> {
      * @param element - элемент, который будет вставлен по указанному индексу
      * @return - обновленный элемент T
      */
-    T set(int index, T element);
+    <T> void set(int index, T element);
 
     /**
      * Удаляет все элементы из данного списка.

@@ -36,7 +36,6 @@ public class MyArrayList<T> implements MyList<T> {
         matrixElements[size++] = t;
     }
 
-
     @Override
     public void add(int index, T element) {
         if (checkIndex(index)) {
@@ -47,27 +46,6 @@ public class MyArrayList<T> implements MyList<T> {
             System.err.printf("Out of bounds Check Index -> %d", index);
         }
     }
-
-    @Override
-    public void remove(int index) {
-
-    }
-
-    @Override
-    public T get(int index) {
-        return null;
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
 
     private void growMatrix() {
         if (isLimitSize()) {
@@ -154,6 +132,52 @@ public class MyArrayList<T> implements MyList<T> {
         }
 
         return newObject;
+    }
+
+    @Override
+    public void remove(int index) {
+        if (checkIndex(index)) {
+            copyMatrixWithStepToLeft(index);
+            size--;
+        } else {
+            System.err.printf("Out of bounds Check Index -> %d", index);
+        }
+    }
+
+    private void copyMatrixWithStepToLeft(int index) {
+        Object[] matrixElement = this.matrixElements;
+        int oldSize = size;
+
+        int add = 0;
+        for (int i = index; i < size; i++) {
+            if (i == index) {
+                add++;
+                int newIndex = i + add;
+            }
+            int newIndex = i + add;
+
+            this.matrixElements[i] = matrixElements[newIndex];
+        }
+    }
+
+    @Override
+    public T get(int index) {
+        return (T) matrixElements[index];
+    }
+
+    @Override
+    public <T> void set(int index, T element) {
+        matrixElements[index] = element;
+    }
+
+
+    @Override
+    public void clear() {
+        final Object[] es = matrixElements;
+        for (int i = 0; i < size; i++) {
+            es[i] = null;
+        }
+        size = 0;
     }
 
     /**
