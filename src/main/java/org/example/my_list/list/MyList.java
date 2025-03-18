@@ -46,5 +46,9 @@ public interface MyList<T> {
      */
     void clear();
 
+    int size();
 
+    default boolean checkIndex(int index, int size) {
+        return (index >= 0) && (index < size);
+    }
 }

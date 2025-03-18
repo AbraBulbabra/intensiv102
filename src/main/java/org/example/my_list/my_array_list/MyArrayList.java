@@ -37,8 +37,13 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
     public void add(int index, T element) {
-        if (checkIndex(index)) {
+        if (checkIndex(index,size)) {
             matrixElements = copyMatrixWithStepToRight(index);
             matrixElements[index] = element;
             size++;
@@ -146,7 +151,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void remove(int index) {
-        if (checkIndex(index)) {
+        if (checkIndex(index,size)) {
             copyMatrixWithStepToLeft(index);
             size--;
         } else {
@@ -156,10 +161,6 @@ public class MyArrayList<T> implements MyList<T> {
 
     private boolean isLimitSize() {
         return size == matrixElements.length;
-    }
-
-    private boolean checkIndex(int index) {
-        return (index >= 0) && (index < size);
     }
 
     /**
