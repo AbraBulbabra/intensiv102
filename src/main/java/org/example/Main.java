@@ -13,18 +13,6 @@ public class Main {
         intArr.add(11);
         intArr.add(7);
 
-//        for (int i = 0; i < intArr.size; i++) {
-//            System.out.println(intArr.get(i));
-//        }
-//
-//        intArr.remove(1);
-//        intArr.add(1,15);
-//        intArr.set(0,10);
-//
-//        for (int i = 0; i < intArr.size; i++) {
-//            System.out.println(intArr.get(i));
-//        }
-
         for (int i = 0; i < intArr.size; i++) {
             System.out.println(intArr.get(i));
         }
@@ -54,26 +42,5 @@ public class Main {
         for (int i = 0; i < strLinked.size(); i++) {
             System.out.println(strLinked.get(i));
         }
-
-
-//        strLinked.set(1, 20);
-//
-//        for (int i = 0; i < strLinked.size(); i++) {
-//            System.out.println(strLinked.get(i));
-//        }
-//
-//        System.out.println("-----------------");
-//        strLinked.add(1,40);
-//
-//        for (int i = 0; i < strLinked.size(); i++) {
-//            System.out.println(strLinked.get(i));
-//        }
-//
-//        System.out.println("-----------------");
-//        strLinked.remove(1);
-//
-//        for (int i = 0; i < strLinked.size(); i++) {
-//            System.out.println(strLinked.get(i));
-//        }
     }
 }
