@@ -30,7 +30,6 @@ public class MyArrayList<T> implements MyList<T> {
         }
     }
 
-    //Appends the specified element to the end of this list.
     @Override
     public void add(T t) {
         growMatrix();
@@ -195,7 +194,6 @@ public class MyArrayList<T> implements MyList<T> {
         matrixElements[index] = element;
     }
 
-
     @Override
     public void clear() {
         final Object[] es = matrixElements;
@@ -224,10 +222,8 @@ public class MyArrayList<T> implements MyList<T> {
             MyArrayList arrayLeft = new MyArrayList();
             copy(0, medium, arrayLeft);
 
-
             MyArrayList arrayRight = new MyArrayList();
             copy(medium + 1, sizeMyList - 1, arrayRight);
-
 
             arrayLeft = mergeSort(arrayLeft);
             arrayRight = mergeSort(arrayRight);

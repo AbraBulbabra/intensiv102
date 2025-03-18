@@ -1,12 +1,10 @@
 package org.example.my_list.my_linked_list;
 
 import org.example.my_list.list.MyList;
-import org.example.my_list.my_array_list.MyArrayList;
 
 public class MyLinkedList<T> implements MyList<T> {
 
     private int size = 0;
-
 
     private Node<T> first;
     private Node<T> last;
@@ -59,7 +57,6 @@ public class MyLinkedList<T> implements MyList<T> {
 
         size++;
     }
-
 
     @Override
     public void add(T element) {
@@ -135,8 +132,10 @@ public class MyLinkedList<T> implements MyList<T> {
             oldNode.element = null;
             oldNode.next = null;
             oldNode.before = null;
+
             oldNode = next;
         }
+
         first = last = null;
         size = 0;
     }
@@ -157,7 +156,6 @@ public class MyLinkedList<T> implements MyList<T> {
             for (int i = size - 1; i > index; i--) {
                 desiredElement = desiredElement.before;
             }
-
             return desiredElement;
         }
     }
@@ -171,6 +169,7 @@ public class MyLinkedList<T> implements MyList<T> {
     public <T extends Comparable<T>> void sort() {
         int start = 0;
         int end = size - 1;
+
         quickSort(start, end);
     }
 
@@ -184,12 +183,12 @@ public class MyLinkedList<T> implements MyList<T> {
      * *@param end   - right border of the array
      */
     private <T extends Comparable<T>> void quickSort(int start, int end) {
-
         int partition = partitionLinked(start, end);
 
         if (partition - 1 > start) {
             quickSort(start, partition - 1);
         }
+
         if (partition + 1 < end) {
             quickSort(partition + 1, end);
         }
@@ -198,8 +197,8 @@ public class MyLinkedList<T> implements MyList<T> {
     /**
      * Sorting method
      * <p>
-     * *@param arr - sorting array
-     * *@param pivot - element for comparison
+     * *@param linkedList - sorting array
+     * *@param elementPivot - element for comparison
      * *@param wall - everything to the left of which the indices are less than Pivot,
      * to the right are greater,
      * at the end at this point they become Pivot
@@ -221,7 +220,6 @@ public class MyLinkedList<T> implements MyList<T> {
 
         return wall;
     }
-
 
     private void changeOfElements(int wall, int index) {
         T temp = this.get(wall);
