@@ -30,7 +30,7 @@ public interface MyList<T> {
      * @param index - индекс элемента, который нужно вернуть
      * @return - возвращает элемент T по указанному индексу
      */
-    T get(int index);
+   T get(int index);
 
     /**
      * Заменяет элемент T по указанному индексу.
@@ -39,7 +39,7 @@ public interface MyList<T> {
      * @param element - элемент, который будет вставлен по указанному индексу
      * @return - обновленный элемент T
      */
-    <T> void set(int index, T element);
+   <T> void set(int index, T element);
 
     /**
      * Удаляет все элементы из данного списка.
@@ -48,7 +48,9 @@ public interface MyList<T> {
 
     int size();
 
-    default boolean checkIndex(int index, int size) {
+     <T2 extends Comparable<T2>> void sort();
+
+      default boolean checkIndex(int index, int size) {
         return (index >= 0) && (index < size);
     }
 }

@@ -166,6 +166,11 @@ public class MyLinkedList<T> implements MyList<T> {
         return size;
     }
 
+    @Override
+    public <T2 extends Comparable<T2>> void sort() {
+
+    }
+
 
     private static class Node<T> {
         T element;

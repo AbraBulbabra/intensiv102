@@ -23,6 +23,14 @@ public class Main {
             System.out.println(intArr.get(i));
         }
 
+        System.out.println("____________-------");
+        intArr.sort();
+
+        for (int i = 0; i < intArr.size; i++) {
+            System.out.println(intArr.get(i));
+        }
+
+
 
         MyList<String> strLinked = new MyLinkedList<>();
         strLinked.add("one");
