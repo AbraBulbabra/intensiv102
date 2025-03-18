@@ -211,67 +211,12 @@ public class MyArrayList<T> implements MyList<T> {
         this.matrixElements = mergeSort(sort).matrixElements;
     }
 
-    /**
-     * Recursion method
-     * <p>
-     * *@param partition - index of the already sorted part of the array.
-     * everything on the left will always be smaller
-     * everything on the right is always bigger
-     * *@param start - left border of the array
-     * *@param end   - right border of the array
-     */
-    private <T extends Comparable<T>> void quickSort(int start, int end) {
-        int partition = partition(start, end);
-
-        if (partition - 1 > start) {
-            quickSort(start, partition - 1);
-        }
-        if (partition + 1 < end) {
-            quickSort(partition + 1, end);
-        }
-    }
-
-    /**
-     * Sorting method
-     * <p>
-     * *@param arr - sorting array
-     * *@param pivot - element for comparison
-     * *@param wall - everything to the left of which the indices are less than Pivot,
-     * to the right are greater,
-     * at the end at this point they become Pivot
-     * *@param end   - right border of the array
-     */
-    private <T extends Comparable<T>> int partition(int wall, int end) {
-        MyArrayList<T> arr = (MyArrayList<T>) this;
-        T pivot = arr.get(end);
-
-        for (int i = wall; i < end; i++) {
-            if (arr.get(i).compareTo(pivot) < 0) {
-                T temp = arr.get(wall);
-                arr.set(wall, arr.get(i));
-                arr.set(i, temp);
-                wall++;
-            }
-        }
-
-
-        T temp = arr.get(wall);
-        arr.set(wall, pivot);
-        arr.set(end, temp);
-
-        return wall;
-    }
-
     private <T extends Comparable<T>> MyArrayList<T> mergeSort(MyArrayList<T> myArrayList) {
         if (matrixElements == null) {
             throw new IllegalArgumentException();
         }
 
         int sizeMyList = myArrayList.size();
-
-//        if (sizeMyList < 2) {
-//            return myArrayList;
-//        }
 
         if (sizeMyList > 2) {
             int medium = sizeMyList >> 1;

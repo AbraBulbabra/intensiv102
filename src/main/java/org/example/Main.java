@@ -36,26 +36,34 @@ public class Main {
             System.out.println(intArr.get(i));
         }
 
+        System.out.println("--------MyLinkedList---------");
+
+        MyList<Integer> strLinked = new MyLinkedList<>();
+        strLinked.add(2);
+        strLinked.add(6);
+        strLinked.add(1);
+        strLinked.add(5);
+
+        for (int i = 0; i < strLinked.size(); i++) {
+            System.out.println(strLinked.get(i));
+        }
+
+        System.out.println("-----------------");
+        strLinked.sort();
+
+        for (int i = 0; i < strLinked.size(); i++) {
+            System.out.println(strLinked.get(i));
+        }
 
 
-//        MyList<String> strLinked = new MyLinkedList<>();
-//        strLinked.add("one");
-//        strLinked.add("два");
-//        strLinked.add("trua");
+//        strLinked.set(1, 20);
 //
 //        for (int i = 0; i < strLinked.size(); i++) {
 //            System.out.println(strLinked.get(i));
 //        }
 //
 //        System.out.println("-----------------");
-//        strLinked.set(1, "two");
-//
-//        for (int i = 0; i < strLinked.size(); i++) {
-//            System.out.println(strLinked.get(i));
-//        }
-//
-//        System.out.println("-----------------");
-//        strLinked.add(1,"in");
+//        strLinked.add(1,40);
 //
 //        for (int i = 0; i < strLinked.size(); i++) {
 //            System.out.println(strLinked.get(i));

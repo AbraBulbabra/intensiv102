@@ -1,6 +1,7 @@
 package org.example.my_list.my_linked_list;
 
 import org.example.my_list.list.MyList;
+import org.example.my_list.my_array_list.MyArrayList;
 
 public class MyLinkedList<T> implements MyList<T> {
 
@@ -167,10 +168,66 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public <T2 extends Comparable<T2>> void sort() {
-
+    public <T extends Comparable<T>> void sort() {
+        int start = 0;
+        int end = size - 1;
+        quickSort(start, end);
     }
 
+    /**
+     * Recursion method
+     * <p>
+     * *@param partition - index of the already sorted part of the array.
+     * everything on the left will always be smaller
+     * everything on the right is always bigger
+     * *@param start - left border of the array
+     * *@param end   - right border of the array
+     */
+    private <T extends Comparable<T>> void quickSort(int start, int end) {
+
+        int partition = partitionLinked(start, end);
+
+        if (partition - 1 > start) {
+            quickSort(start, partition - 1);
+        }
+        if (partition + 1 < end) {
+            quickSort(partition + 1, end);
+        }
+    }
+
+    /**
+     * Sorting method
+     * <p>
+     * *@param arr - sorting array
+     * *@param pivot - element for comparison
+     * *@param wall - everything to the left of which the indices are less than Pivot,
+     * to the right are greater,
+     * at the end at this point they become Pivot
+     * *@param end   - right border of the array
+     */
+    private <T extends Comparable<T>> int partitionLinked(int wall, int end) {
+        MyLinkedList<T> linkedList = (MyLinkedList<T>) this;
+        T elementPivot = linkedList.get(end);
+
+        for (int i = wall; i < end; i++) {
+            T element = linkedList.get(i);
+            if (element.compareTo(elementPivot) < 0) {
+                changeOfElements(wall, i);
+                wall++;
+            }
+        }
+
+        changeOfElements(wall, end);
+
+        return wall;
+    }
+
+
+    private void changeOfElements(int wall, int index) {
+        T temp = this.get(wall);
+        this.set(wall, this.get(index));
+        this.set(index, temp);
+    }
 
     private static class Node<T> {
         T element;
@@ -183,6 +240,4 @@ public class MyLinkedList<T> implements MyList<T> {
             this.before = before;
         }
     }
-
-
 }
