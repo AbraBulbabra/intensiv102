@@ -207,9 +207,8 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public <T extends Comparable<T>> void sort() {
-        int start = 0;
-        int end = size - 1;
-        quickSort(start, end);
+        MyArrayList<T> sort = (MyArrayList<T>) this;
+        this.matrixElements = mergeSort(sort).matrixElements;
     }
 
     /**
@@ -261,5 +260,79 @@ public class MyArrayList<T> implements MyList<T> {
         arr.set(end, temp);
 
         return wall;
+    }
+
+    private <T extends Comparable<T>> MyArrayList<T> mergeSort(MyArrayList<T> myArrayList) {
+        if (matrixElements == null) {
+            throw new IllegalArgumentException();
+        }
+
+        int sizeMyList = myArrayList.size();
+
+//        if (sizeMyList < 2) {
+//            return myArrayList;
+//        }
+
+        if (sizeMyList > 2) {
+            int medium = sizeMyList >> 1;
+
+            MyArrayList arrayLeft = new MyArrayList();
+            copy(0, medium, arrayLeft);
+
+
+            MyArrayList arrayRight = new MyArrayList();
+            copy(medium + 1, sizeMyList - 1, arrayRight);
+
+
+            arrayLeft = mergeSort(arrayLeft);
+            arrayRight = mergeSort(arrayRight);
+            return mergeArray(arrayLeft, arrayRight);
+
+        } else if (sizeMyList == 2) {
+            MyArrayList arrayLeft = new MyArrayList();
+            arrayLeft.add(myArrayList.get(0));
+
+            MyArrayList arrayRight = new MyArrayList();
+            arrayRight.add(myArrayList.get(sizeMyList - 1));
+            return mergeArray(arrayLeft, arrayRight);
+
+        } else {
+            return myArrayList;
+        }
+    }
+
+    private <T extends Comparable<T>> MyArrayList<T> mergeArray(MyArrayList<T> left, MyArrayList<T> right) {
+        MyArrayList<T> arrayUnited = new MyArrayList<T>(left.size() + right.size());
+        int indexArrayLeft = 0;
+        int indexArrayRight = 0;
+
+        for (int i = 0; i < arrayUnited.matrixElements.length; i++) {
+
+            if (indexArrayLeft == left.size()) {
+                arrayUnited.add(right.get(indexArrayRight));
+                indexArrayRight++;
+
+            } else if (indexArrayRight == right.size()) {
+                arrayUnited.add(left.get(indexArrayLeft));
+                indexArrayLeft++;
+
+            } else if (left.get(indexArrayLeft).compareTo(right.get(indexArrayRight)) < 0) {
+                arrayUnited.add(left.get(indexArrayLeft));
+                indexArrayLeft++;
+
+            } else {
+                arrayUnited.add(right.get(indexArrayRight));
+                indexArrayRight++;
+
+            }
+        }
+        return arrayUnited;
+    }
+
+    private MyArrayList<T> copy(int start, int finish, MyArrayList<T> halfList) {
+        for (int i = start; i <= finish; i++) {
+            halfList.add(this.get(i));
+        }
+        return halfList;
     }
 }
