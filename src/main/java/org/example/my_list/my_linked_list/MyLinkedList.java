@@ -116,7 +116,7 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public <T> void set(int index, T element) {
+    public void set(int index, T element) {
         if (checkIndex(index, size)) {
             Node<T> nodeWithMemory = (Node<T>) nodeForIndex(index);
             nodeWithMemory.element = element;

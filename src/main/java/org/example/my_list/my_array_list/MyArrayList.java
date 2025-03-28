@@ -11,20 +11,20 @@ public class MyArrayList<T> implements MyList<T> {
     private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
     // The array buffer into which the elements of the ArrayList.
-    private Object[] matrixElements;
+    private Object[] arrayElements;
 
     // Count element in matrixElements.
     public int size;
 
     public MyArrayList() {
-        this.matrixElements = new Object[DEFAULT_CAPACITY];
+        this.arrayElements = new Object[DEFAULT_CAPACITY];
     }
 
     public MyArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
-            this.matrixElements = new Object[initialCapacity];
+            this.arrayElements = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.matrixElements = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+            this.arrayElements = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
         }
@@ -33,7 +33,7 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public void add(T t) {
         growMatrix();
-        matrixElements[size++] = t;
+        arrayElements[size++] = t;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public void add(int index, T element) {
         if (checkIndex(index, size)) {
-            matrixElements = copyMatrixWithStepToRight(index);
-            matrixElements[index] = element;
+            arrayElements = copyMatrixWithStepToRight(index);
+            arrayElements[index] = element;
             size++;
         } else {
             System.err.printf("Out of bounds Check Index -> %d", index);
@@ -66,9 +66,9 @@ public class MyArrayList<T> implements MyList<T> {
      */
     private void extensionMatrix() {
         if (isSizeMatrixElementsNotZeroOrEmpty()) {
-            matrixElements = copyMatrixElement();
+            arrayElements = copyMatrixElement();
         } else {
-            matrixElements = new Object[newLength()];
+            arrayElements = new Object[newLength()];
         }
     }
 
@@ -78,11 +78,11 @@ public class MyArrayList<T> implements MyList<T> {
      * @return возвращает новый массив с копией элементов
      */
     private Object[] copyMatrixElement() {
-        int oldLength = matrixElements.length;
+        int oldLength = arrayElements.length;
         Object[] newMatrix = new Object[newLength()];
 
         for (int i = 0; i < size; i++) {
-            newMatrix[i] = matrixElements[i];
+            newMatrix[i] = arrayElements[i];
         }
 
         return newMatrix;
@@ -98,7 +98,7 @@ public class MyArrayList<T> implements MyList<T> {
      * @return - новое рассчитанное значение длины массива
      */
     private int newLength() {
-        int oldLength = matrixElements.length;
+        int oldLength = arrayElements.length;
         int minExtension = size + 1;
         int bestExtension = oldLength >> 1;
 
@@ -109,7 +109,7 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     private boolean isSizeMatrixElementsNotZeroOrEmpty() {
-        return matrixElements.length > 0 || matrixElements != DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+        return arrayElements.length > 0 || arrayElements != DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
     }
 
     /**
@@ -129,7 +129,7 @@ public class MyArrayList<T> implements MyList<T> {
             }
 
             int newIndex = i + add;
-            newObject[newIndex] = matrixElements[i];
+            newObject[newIndex] = arrayElements[i];
         }
 
         return newObject;
@@ -145,7 +145,7 @@ public class MyArrayList<T> implements MyList<T> {
         if (isLimitSize()) {
             return new Object[newLength()];
         } else {
-            return new Object[matrixElements.length];
+            return new Object[arrayElements.length];
         }
     }
 
@@ -160,7 +160,7 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     private boolean isLimitSize() {
-        return size == matrixElements.length;
+        return size == arrayElements.length;
     }
 
     /**
@@ -169,34 +169,31 @@ public class MyArrayList<T> implements MyList<T> {
      * @param index - индекс, с которого начинается сдвиг влево
      */
     private void copyMatrixWithStepToLeft(int index) {
-        Object[] matrixElement = this.matrixElements;
-        int oldSize = size;
 
         int add = 0;
-        for (int i = index; i < size; i++) {
+        for (int i = index; i < size - 1; i++) {
             if (i == index) {
                 add++;
-                int newIndex = i + add;
             }
             int newIndex = i + add;
 
-            this.matrixElements[i] = matrixElements[newIndex];
+            this.arrayElements[i] = arrayElements[newIndex];
         }
     }
 
     @Override
     public T get(int index) {
-        return (T) matrixElements[index];
+        return (T) arrayElements[index];
     }
 
     @Override
-    public <T> void set(int index, T element) {
-        matrixElements[index] = element;
+    public void set(int index, T element) {
+        arrayElements[index] = element;
     }
 
     @Override
     public void clear() {
-        final Object[] es = matrixElements;
+        final Object[] es = arrayElements;
         for (int i = 0; i < size; i++) {
             es[i] = null;
         }
@@ -206,11 +203,11 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public <T extends Comparable<T>> void sort() {
         MyArrayList<T> sort = (MyArrayList<T>) this;
-        this.matrixElements = mergeSort(sort).matrixElements;
+        this.arrayElements = mergeSort(sort).arrayElements;
     }
 
     private <T extends Comparable<T>> MyArrayList<T> mergeSort(MyArrayList<T> myArrayList) {
-        if (matrixElements == null) {
+        if (arrayElements == null) {
             throw new IllegalArgumentException();
         }
 
@@ -247,7 +244,7 @@ public class MyArrayList<T> implements MyList<T> {
         int indexArrayLeft = 0;
         int indexArrayRight = 0;
 
-        for (int i = 0; i < arrayUnited.matrixElements.length; i++) {
+        for (int i = 0; i < arrayUnited.arrayElements.length; i++) {
 
             if (indexArrayLeft == left.size()) {
                 arrayUnited.add(right.get(indexArrayRight));
